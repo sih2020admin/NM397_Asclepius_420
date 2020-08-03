@@ -3,8 +3,9 @@
 Voice based navigation for Bhuvan Portal
 
 ## Installation
-Clone the repo and run 'npm i' 
-'npm start'
+1] Clone the repository.
+2] run 'npm i' in the console.
+3] Traverse to the main directory in console, then run'npm start'.
 
 ## Working Commands
 ### English
@@ -14,17 +15,17 @@ Go left
 Go right
 Zoom in
 Zoom out
-Go to Delhi, Nagpur, Bhopal, Indore, Goa
+Go to Delhi/Nagpu/Bhopal/Indore/Goa
 
 ### Hindi
-Upar jao
-Neeche jao
-Baye jao
-Daye jao
-Bada karo
-Chota karo
-Delhi chalo
-Nagpur chalo
-Bhopal chalo
-Indore chalo
-Goa chalo
+Upar jao,
+Neeche jao,
+Baye jao,
+Daye jao,
+Bada karo,
+Chota karo,
+Delhi chalo,
+Nagpur chalo,
+Bhopal chalo,
+Indore chalo,
+Goa chalo.
