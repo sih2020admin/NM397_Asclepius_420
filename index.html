@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Web-GIS Demo</title>
+    <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
+    <script src="https://unpkg.com/elm-pep"></script>
+    <style>
+        body {
+            height: 90vh;
+        }
+
+        #mic-button {
+            width: 50px;
+        }
+
+        @keyframes breathing {
+            0% {
+                -webkit-transform: scale(0.9);
+                -ms-transform: scale(0.9);
+                transform: scale(0.9);
+            }
+
+            25% {
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+
+            60% {
+                -webkit-transform: scale(0.9);
+                -ms-transform: scale(0.9);
+                transform: scale(0.9);
+            }
+
+            100% {
+                -webkit-transform: scale(0.9);
+                -ms-transform: scale(0.9);
+                transform: scale(0.9);
+            }
+        }
+
+        .invert-filter {
+            filter: invert();
+        }
+
+        .breathe{
+            animation: breathing 0.85s linear infinite normal;
+        }
+
+        .mic-button-holder {
+            z-index: 99;
+            position: absolute;
+            background-color: white;
+            border-radius: 32px;
+            padding: 7px;
+            bottom: 5px;
+            left: calc(50% - 32px);
+        }
+
+        .mic-button-holder:hover {
+            padding: 10px;
+            left: calc(50% - 35px);
+            border-radius: 35px;
+        }
+
+        .map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" class="map">
+        <div class="mic-button-holder">
+            <img id="mic-button" src="mic.png" alt="">
+        </div>
+    </div>
+    <select id="layer-select">
+        <option value="Aerial">Aerial</option>
+        <option value="AerialWithLabelsOnDemand" selected>Aerial with labels</option>
+        <option value="RoadOnDemand">Road</option>
+        <option value="CanvasDark">Road dark</option>
+        <option value="OrdnanceSurvey">Ordnance Survey</option>
+    </select>
+    <script src="main.js"></script>
+</body>
+
+</html>
