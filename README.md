@@ -9,13 +9,13 @@ Voice based navigation for Bhuvan Portal
 
 ## Working Commands
 ### English
-Go up
-Go down
-Go left
-Go right
-Zoom in
-Zoom out
-Go to Delhi/Nagpu/Bhopal/Indore/Goa
+Go up,
+Go down,
+Go left,
+Go right,
+Zoom in,
+Zoom out,
+Go to Delhi/Nagpur/Bhopal/Indore/Goa.
 
 ### Hindi
 Upar jao,
