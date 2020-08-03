@@ -5,7 +5,7 @@ Voice based navigation for Bhuvan Portal
 ## Installation
 1] Clone the repository.
 2] run 'npm i' in the console.
-3] Traverse to the main directory in console, then run'npm start'.
+3] Traverse to the main directory in console, then run 'npm start'.
 
 ## Working Commands
 ### English
