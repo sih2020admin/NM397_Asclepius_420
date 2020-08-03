@@ -16,13 +16,24 @@ var locations = {
   goa: [74.124, 15.2993],
 };
 
+var zoomLevels = {
+  delhi: 13,
+  nagpur: 13,
+  bhopal: 13,
+  indore: 13,
+  goa: 13,
+};
+
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent =
   SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
-var mic = document.getElementById("mic-button");
 
-mic.onclick = activateMic;
+var micButton = document.getElementById("mic-button");
+var langButton = document.getElementById("lang-button");
+
+micButton.onclick = activateMic;
+langButton.onclick = toggleLanguage;
 
 var englishRecognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
@@ -39,6 +50,8 @@ hindiRecognition.continuous = false;
 hindiRecognition.lang = "hi";
 hindiRecognition.interimResults = false;
 hindiRecognition.maxAlternatives = 1;
+
+var currentRecognitionModel = englishRecognition;
 
 var styles = [
   "RoadOnDemand",
@@ -92,6 +105,16 @@ englishRecognition.onresult = function (event) {
     zoomIn();
   } else if (result.includes("out") && result.includes("zoom")) {
     zoomOut();
+  } else if (result.includes("delhi")) {
+    panAnimate(locations["delhi"], zoomLevels["delhi"]);
+  } else if (result.includes("nagpur")) {
+    panAnimate(locations["nagpur"], zoomLevels["nagpur"]);
+  } else if (result.includes("bhopal")) {
+    panAnimate(locations["bhopal"], zoomLevels["bhopal"]);
+  } else if (result.includes("indore")) {
+    panAnimate(locations["indore"], zoomLevels["indore"]);
+  } else if (result.includes("goa")) {
+    panAnimate(locations["goa"], zoomLevels["goa"]);
   } else if (result.includes("up")) {
     panUp();
   } else if (result.includes("down")) {
@@ -100,16 +123,37 @@ englishRecognition.onresult = function (event) {
     panLeft();
   } else if (result.includes("right")) {
     panRight();
-  } else if (result.includes("delhi")) {
-    panAnimate(locations["delhi"]);
-  } else if (result.includes("nagpur")) {
-    panAnimate(locations["nagpur"]);
-  } else if (result.includes("bhopal")) {
-    panAnimate(locations["bhopal"]);
-  } else if (result.includes("indore")) {
-    panAnimate(locations["indore"]);
-  } else if (result.includes("goa")) {
-    panAnimate(locations["goa"]);
+  }
+  onChange();
+  deactivateMic();
+};
+
+hindiRecognition.onresult = function (event) {
+  var result = event.results[0][0].transcript;
+  console.log(result);
+
+  if (result.includes("बड़ा") && result.includes("करो")) {
+    zoomIn();
+  } else if (result.includes("छोटा") && result.includes("करो")) {
+    zoomOut();
+  } else if (result.includes("दिल्ली")) {
+    panAnimate(locations["delhi"], zoomLevels["delhi"]);
+  } else if (result.includes("नागपुर")) {
+    panAnimate(locations["nagpur"], zoomLevels["nagpur"]);
+  } else if (result.includes("भोपाल")) {
+    panAnimate(locations["bhopal"], zoomLevels["bhopal"]);
+  } else if (result.includes("इंदौर")) {
+    panAnimate(locations["indore"], zoomLevels["indore"]);
+  } else if (result.includes("गोवा")) {
+    panAnimate(locations["goa"], zoomLevels["goa"]);
+  } else if (result.includes("ऊपर")) {
+    panUp();
+  } else if (result.includes("नीचे")) {
+    panDown();
+  } else if (result.includes("बाएं") || result.includes("बाय") || result.includes("बाए")) {
+    panLeft();
+  } else if (result.includes("दाएं") || result.includes("दाय") || result.includes("दाए")) {
+    panRight();
   }
   onChange();
   deactivateMic();
@@ -165,19 +209,30 @@ function panDown() {
   panAnimate(center);
 }
 
-function panAnimate(location) {
+function panAnimate(location, zoom) {
   var view = map.getView();
   view.animate({
+    zoom: zoom ? zoom : view.getZoom(),
     center: location,
     duration: 1000,
   });
 }
 
 function activateMic() {
-  mic.parentElement.className = "breathe invert-filter mic-button-holder";
-  englishRecognition.start();
+  micButton.parentElement.className = "breathe invert-filter mic-button-holder";
+  currentRecognitionModel.start();
 }
 
 function deactivateMic() {
-  mic.parentElement.className = "mic-button-holder";
+  micButton.parentElement.className = "mic-button-holder";
+}
+
+function toggleLanguage() {
+  if (langButton.innerText == "English") {
+    langButton.innerText = "Hindi";
+    currentRecognitionModel = hindiRecognition;
+  } else if (langButton.innerText == "Hindi") {
+    langButton.innerText = "English";
+    currentRecognitionModel = englishRecognition;
+  }
 }

@@ -63,6 +63,19 @@
             left: calc(50% - 35px);
             border-radius: 35px;
         }
+        
+        .lang-button-holder {
+            z-index: 99;
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+        }
+
+        #lang-button{
+            background-color: white;
+            border-radius: 32px;
+            padding: 10px;
+        }
 
         .map {
             position: relative;
@@ -76,6 +89,9 @@
     <div id="map" class="map">
         <div class="mic-button-holder">
             <img id="mic-button" src="mic.png" alt="">
+        </div>
+        <div class="lang-button-holder">
+            <button id="lang-button">English</button>
         </div>
     </div>
     <select id="layer-select">
